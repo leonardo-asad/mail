@@ -8,6 +8,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // By default, load the inbox
   load_mailbox('inbox');
+
+  // Send Emails
+  document.querySelector("#compose-form").onsubmit = function() {
+    const recipients = document.querySelector("#compose-recipients").value;
+    alert(recipients);
+  };
 });
 
 function compose_email() {
@@ -23,7 +29,7 @@ function compose_email() {
 }
 
 function load_mailbox(mailbox) {
-  
+
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
