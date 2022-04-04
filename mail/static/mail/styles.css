@@ -1,3 +1,28 @@
 textarea {
     min-height: 400px;
 }
+
+#email-row {
+  border-style: solid !important;
+  border-collapse: collapse !important;
+  border-width: 1px;
+  padding: 5px;
+}
+
+#sender {
+  font-weight: bold;
+  text-align: left;
+}
+
+#subject {
+  text-align: left;
+}
+
+#timestamp {
+  color: gray;
+  text-align: right;
+}
+
+.read {
+  background-color: rgba(242,245,245,0.8) !important;
+}
