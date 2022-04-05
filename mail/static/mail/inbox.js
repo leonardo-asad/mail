@@ -110,7 +110,6 @@ function load_mailbox(mailbox) {
           //debugger
           email_id = email.dataset.email;
           load_email(email_id);
-          //console.log('Hi!');
         });
       });
     });
