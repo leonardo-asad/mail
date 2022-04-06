@@ -16,7 +16,7 @@
 
 
     <div id="compose-view">
-        <h3>New Email</h3>
+        <h3 id="compose-title">New Email</h3>
         <form id="compose-form">
             <div class="form-group">
                 From: <input disabled class="form-control" value="{{ request.user.email }}">
@@ -33,12 +33,26 @@
     </div>
 
     <div id="email-view">
-
-      <p id="view-from"><b>From:</b> foo@example.com</p>
-      <p id="view-to"><b>To:</b> bar@example.com</p>
-      <p id="view-subject"><b>Subject:</b> Hello!</p>
-      <p id="view-timestamp"><b>Timestamp:</b> 20 Mar 2022</p>
-      <button class="btn btn-sm btn-outline-primary" id="reply">Reply</button>
+      <div class="email-header">
+        <b>From: </b>
+        <p id="view-from"></p>
+      </div>
+      <div class="email-header">
+        <b>To: </b>
+        <p id="view-to"></p>
+      </div>
+      <div class="email-header">
+        <b>Subject: </b>
+        <p id="view-subject"></p>
+      </div>
+      <div class="email-header">
+        <b>Timestamp: </b>
+        <p id="view-timestamp"></p>
+      </div>
+      <div class="buttons">
+        <div id="reply"></div>
+        <button class="btn btn-sm btn-outline-primary" id="archive"></button>
+      </div>
       <hr>
 
       <p id="view-body"></p>
