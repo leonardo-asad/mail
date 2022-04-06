@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   load_mailbox('inbox')
 });
 
-// Create the composition of the email
+// Create an email view
 function compose_email() {
 
   // Show compose view and hide other views
@@ -23,16 +23,17 @@ function compose_email() {
   document.querySelector('#compose-subject').value = '';
   document.querySelector('#compose-body').value = '';
 
-  // Send Emails
+  // Call Send Emails function
   const submit_email = document.querySelector("#compose-form")
   submit_email.addEventListener('submit', (event) => {
     event.stopImmediatePropagation();
-    send_email(event)
+    send_email(event);
   });
 };
 
-// Send composed email
+// Send email
 function send_email(event) {
+
   event.preventDefault();
 
   // Get the content of the email
@@ -40,8 +41,6 @@ function send_email(event) {
   const subject = document.querySelector("#compose-subject").value;
   const body = document.querySelector("#compose-body").value;
 
-
-  //debugger
   // Make a post request
   fetch("/emails", {
     method: "POST",
@@ -53,7 +52,7 @@ function send_email(event) {
   })
   .then(response => response.json())
   .then(result => {
-    // Print result
+    // Print status code
     console.log(result.status);
   })
   .then(() => {
@@ -80,8 +79,8 @@ function load_mailbox(mailbox) {
       emails.forEach(email => {
         // Create row container
         const row = document.createElement('div')
-        row.setAttribute('class', 'row')
-        row.setAttribute('id', 'email-row')
+        row.setAttribute('class', 'row');
+        row.setAttribute('id', 'email-row');
         row.addEventListener('click', () => {
           load_email(email.id, 'inbox');
         })
@@ -93,28 +92,28 @@ function load_mailbox(mailbox) {
         // Append sender
         const sender = document.createElement('div');
         sender.setAttribute('class', 'col-sm');
-        sender.setAttribute('id', 'sender')
+        sender.setAttribute('id', 'sender');
         sender.innerHTML = email.sender;
-        row.appendChild(sender)
+        row.appendChild(sender);
 
         // Append subject
         const subject = document.createElement('div');
         subject.setAttribute('class', 'col-sm');
-        subject.setAttribute('id', 'subject')
+        subject.setAttribute('id', 'subject');
         subject.innerHTML = email.subject;
-        row.appendChild(subject)
+        row.appendChild(subject);
 
         // Append timestamp
         const timestamp = document.createElement('div');
         timestamp.setAttribute('class', 'col-sm');
-        timestamp.setAttribute('id', 'timestamp')
-        timestamp.innerHTML = email.timestamp
-        row.appendChild(timestamp)
+        timestamp.setAttribute('id', 'timestamp');
+        timestamp.innerHTML = email.timestamp;
+        row.appendChild(timestamp);
 
         // Append row to main container
-        document.querySelector("#emails-view").append(row)
-      })
-    })
+        document.querySelector("#emails-view").append(row);
+      });
+    });
   };
 
 
@@ -125,11 +124,10 @@ function load_mailbox(mailbox) {
     .then(emails => {
       emails.forEach(email => {
         // Create row container
-        const row = document.createElement('div')
-        row.setAttribute('class', 'row')
-        row.setAttribute('id', 'email-row')
-        row.setAttribute('data-email', email.id)
-        row.addEventListener('click', (event) => {
+        const row = document.createElement('div');
+        row.setAttribute('class', 'row');
+        row.setAttribute('id', 'email-row');
+        row.addEventListener('click', () => {
           load_email(email.id, 'sent');
         })
 
@@ -137,26 +135,26 @@ function load_mailbox(mailbox) {
         const recipients = document.createElement('div');
         recipients.setAttribute('class', 'col-sm');
         recipients.innerHTML = email.recipients.toString();
-        row.appendChild(recipients)
+        row.appendChild(recipients);
 
         // Append subject
         const subject = document.createElement('div');
         subject.setAttribute('class', 'col-sm');
-        subject.setAttribute('id', 'subject')
+        subject.setAttribute('id', 'subject');
         subject.innerHTML = email.subject;
-        row.appendChild(subject)
+        row.appendChild(subject);
 
         // Append timestamp
         const timestamp = document.createElement('div');
         timestamp.setAttribute('class', 'col-sm');
-        timestamp.setAttribute('id', 'timestamp')
-        timestamp.innerHTML = email.timestamp
-        row.appendChild(timestamp)
+        timestamp.setAttribute('id', 'timestamp');
+        timestamp.innerHTML = email.timestamp;
+        row.appendChild(timestamp);
 
         // Append row to main container
-        document.querySelector("#emails-view").append(row)
-      })
-    })
+        document.querySelector("#emails-view").append(row);
+      });
+    });
   };
 
   // Load Archive Mailbox
@@ -166,95 +164,123 @@ function load_mailbox(mailbox) {
     .then(emails => {
       emails.forEach(email => {
         // Create row container
-        const row = document.createElement('div')
-        row.setAttribute('class', 'row')
-        row.setAttribute('id', 'email-row')
-        row.addEventListener('click', (event) => {
+        const row = document.createElement('div');
+        row.setAttribute('class', 'row');
+        row.setAttribute('id', 'email-row');
+        row.addEventListener('click', () => {
           load_email(email.id, 'inbox');
         })
 
-        // Append recipients
-        const recipients = document.createElement('div');
-        recipients.setAttribute('class', 'col-sm');
-        recipients.innerHTML = email.recipients.toString();
-        row.appendChild(recipients)
+        // Append sender
+        const sender = document.createElement('div');
+        sender.setAttribute('class', 'col-sm');
+        sender.setAttribute('id', 'sender');
+        sender.innerHTML = email.sender;
+        row.appendChild(sender);
 
         // Append subject
         const subject = document.createElement('div');
         subject.setAttribute('class', 'col-sm');
-        subject.setAttribute('id', 'subject')
+        subject.setAttribute('id', 'subject');
         subject.innerHTML = email.subject;
-        row.appendChild(subject)
+        row.appendChild(subject);
 
         // Append timestamp
         const timestamp = document.createElement('div');
         timestamp.setAttribute('class', 'col-sm');
-        timestamp.setAttribute('id', 'timestamp')
-        timestamp.innerHTML = email.timestamp
-        row.appendChild(timestamp)
+        timestamp.setAttribute('id', 'timestamp');
+        timestamp.innerHTML = email.timestamp;
+        row.appendChild(timestamp);
 
         // Append row to main container
-        document.querySelector("#emails-view").append(row)
+        document.querySelector("#emails-view").append(row);
       });
     });
   };
 };
 
-function load_email(email_id, mailbox) {
-  // Show the mail and hide other views
+// Remove all childs of a container
+function clean_container(container) {
+  var child = container.lastElementChild;
+  while (child) {
+    container.removeChild(child);
+    child = container.lastElementChild;
+  };
+};
 
+function load_email(email_id, mailbox) {
+
+  // Show the mail and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector("#email-view").style.display = 'block';
 
+  // Select the Reply Button's container
+  var reply_container = document.querySelector("#reply")
+
+  // Remove previously created buttons and create a new one
+  clean_container(reply_container);
+
+  // Create new button
+  var reply_button = document.createElement('button')
+  reply_button.className = "btn btn-sm btn-outline-primary"
+  reply_button.innerHTML = "Reply"
+
+  // Append button to the container
+  reply_container.append(reply_button)
+
+  reply_button.addEventListener('click', (event) => {
+    event.stopImmediatePropagation();
+    reply(email_id);
+  })
+
+  // Archive Button
   if (mailbox === 'inbox') {
     document.querySelector('#archive').style.display = 'block';
+    // Select archive button's container and clean it
+    var archive_container = document.querySelector("#archive");
+    clean_container(archive_container);
   }
   else {
     document.querySelector('#archive').style.display = 'none';
   }
 
-  // Event listener to reply an email
-  //debugger
-  container = document.querySelector("#reply")
-
-  const reply_button = document.createElement('button')
-  reply_button.className = "btn btn-sm btn-outline-primary"
-  reply_button.innerHTML = "Reply"
-
-  container.append(reply_button)
-
-  reply_button.addEventListener('click', (event) => {
-    //debugger
-    event.stopImmediatePropagation(true);
-    reply(email_id)
-    container.removeChild(reply_button)
-  })
-
   // Get the email content
   fetch(`emails/${email_id}`)
   .then(response => response.json())
   .then(data => {
-    //console.log(data)
     document.querySelector("#view-from").innerHTML = data.sender
     document.querySelector("#view-to").innerHTML = data.recipients.toString()
     document.querySelector("#view-subject").innerHTML = data.subject
     document.querySelector("#view-timestamp").innerHTML = data.timestamp
     document.querySelector("#view-body").innerHTML = data.body
 
+    // Add event listener to the archive button
     if (mailbox === 'inbox') {
+      var archive_button = document.createElement('button');
+      archive_button.className = "btn btn-sm btn-outline-primary"
+
       if (data.archived === false) {
-        document.querySelector("#archive").innerHTML = "Archive"
-        document.querySelector("#archive").addEventListener('click', () => archive(email_id))
+
+        archive_button.innerHTML = "Archive";
+        archive_container.append(archive_button);
+        archive_button.addEventListener('click', (event) => {
+          event.stopImmediatePropagation();
+          archive(email_id);
+        })
       }
       else {
-        document.querySelector("#archive").innerHTML = "Remove From Archive"
-        document.querySelector("#archive").addEventListener('click', () => archive(email_id))
-      }
-    }
-  })
+        archive_button.innerHTML = "Remove From Archive";
+        archive_container.append(archive_button);
+        archive_button.addEventListener('click', (event) => {
+          event.stopImmediatePropagation();
+          archive(email_id);
+        });
+      };
+    };
+  });
 
-  // Mark as read
+  // Mark email as read
   fetch(`emails/${email_id}`, {
     method: "PUT",
     body: JSON.stringify({
@@ -264,9 +290,9 @@ function load_email(email_id, mailbox) {
   .then(response => console.log(response.status))
 }
 
-
+// Archive or Remove from archive
 function archive(email_id) {
-  // Add to Archive or Remove from archive
+
   fetch(`emails/${email_id}`)
   .then(response => response.json())
   .then(email => {
@@ -276,17 +302,15 @@ function archive(email_id) {
       archived: !(email.archived)
     })
   })
-  .then((event) => event.stopImmediatePropagation(true))
   .then(response => console.log(response.status))
-  .then(location.reload(true))
+  .then(location.reload())
   .then(() => load_mailbox('inbox'))
-  })
-}
+  });
+};
 
 
 function reply(email_id) {
 
-  //debugger
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector("#email-view").style.display = 'none'
@@ -297,10 +321,7 @@ function reply(email_id) {
   fetch(`emails/${email_id}`)
   .then(response => response.json())
   .then(email => {
-
-    form = document.getElementById('compose-form').reset();
-
-    // Pre-fill form
+    // Pre-fill form with previous emails
     document.querySelector('#compose-recipients').value = email.sender;
 
     if (email.subject.startsWith("Re: ")) {
@@ -314,10 +335,8 @@ function reply(email_id) {
   })
   .then((event) => {
     document.querySelector("#compose-form").addEventListener('submit', (event) => {
-      //debugger
       event.stopImmediatePropagation();
       send_email(event);
     });
-  })
-  //debugger
-}
+  });
+};
