@@ -13,9 +13,9 @@ The email content shows all previous conversations in case there are. In additio
 
 ![Screenshot from 2022-04-10 20-15-01](https://user-images.githubusercontent.com/64209661/162644057-3c8ff6e1-454e-4a22-8b9d-933f76acc7c4.png)
 
-If the email is currently in the archive the user can Unarchive it clicking on the same button
+If the email is currently in the archive the user can remove it from the archive by clicking on the same button
 
-![Screenshot from 2022-04-10 20-15-01](https://user-images.githubusercontent.com/64209661/162644106-354597a4-8878-4642-898a-ae900cf2dd8b.png)
+![Screenshot from 2022-04-10 20-16-45](https://user-images.githubusercontent.com/64209661/162644445-d27fa746-6320-4a0d-8125-f1f62de807b5.png)
 
 Clicking on the reply button, the app will render a pre-filled form with the content of previous emails in a formated as it is displayed in the above
 image.
