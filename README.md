@@ -17,7 +17,7 @@ The email content shows all previous conversations in case there are. In additio
 
 ![Screenshot from 2022-04-10 20-15-01](https://user-images.githubusercontent.com/64209661/162644057-3c8ff6e1-454e-4a22-8b9d-933f76acc7c4.png)
 
-If the email is currently in the archive the user can remove it from the archive by clicking on the same button
+If the email is currently in the archive the user can remove it from there by clicking on the same button
 
 - **Reply Email View**
 
